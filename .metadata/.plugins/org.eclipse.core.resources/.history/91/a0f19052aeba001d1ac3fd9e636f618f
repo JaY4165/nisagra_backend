@@ -14,13 +14,13 @@ import com.example.demo.service.ServiceInterface;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/login")
+
 public class ControllerClass {
 	
 	@Autowired
 	ServiceInterface loginService;
 	
-	
+	@RequestMapping("/login")
 	@PostMapping("/signin")
 	public ResponseClass register(@RequestBody  DtoClass loginDto) {
 		 return loginService.login(loginDto);
