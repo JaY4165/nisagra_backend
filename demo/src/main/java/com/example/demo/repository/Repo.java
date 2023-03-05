@@ -1,23 +1,13 @@
 package com.example.demo.repository;
-
-
-
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import com.example.demo.entity.EntityClass;
 
 
 @Repository
-public interface Repo extends JpaRepository<EntityClass, Integer> {
+public interface Repo extends JpaRepository<EntityClass, Integer>{
 	
-	@Query(value = "select * from nisagra.users where email =:emailId",nativeQuery = true)
-	EntityClass findByEmail(String emailId);
+	List<EntityClass> getCartsByUserId(int user_id);
 	
-	
-	
-	
- 
-
 }

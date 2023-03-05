@@ -1,0 +1,33 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.example.demo.dto.DtoClass;
+import com.example.demo.response.ResponseClass;
+import com.example.demo.service.ServiceInterface;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/cart")
+public class ControllerClass {
+	
+	@Autowired
+	ServiceInterface cartService;
+	
+	
+	@GetMapping({"/cart"})
+	public ResponseEntity<List<DtoClass>> getAllCarts() {
+        List<DtoClass> cartDTOs = cartService.getAllCarts();
+        return new ResponseEntity<>(cartDTOs, HttpStatus.OK);
+    }
+}

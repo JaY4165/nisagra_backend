@@ -1,9 +1,7 @@
 package com.example.demo.service;
+import java.util.ArrayList;
+import java.util.List;
 
-
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DtoClass;
 import com.example.demo.entity.EntityClass;
-import com.example.demo.exception.CommonException;
 import com.example.demo.repository.Repo;
-import com.example.demo.response.ResponseClass;
+
 
 
 
@@ -26,62 +23,19 @@ public class ServiceImplement implements ServiceInterface{
 
 
 	@Override
-	public ResponseClass login(DtoClass loginDto) {
-		
-		  
-		validate(loginDto);
-		format(loginDto);
-
-		EntityClass entity = repo.findByEmail(loginDto.getEmail());
-		ResponseClass responseclass= new ResponseClass();
-
-		if(entity.getPassword().equals(loginDto.getPassword())) {
-			responseclass.setMessage("login successful");
-			responseclass.setStatus(200);
-		}
-		else {
-			responseclass.setMessage("password doesn't match");
-			responseclass.setStatus(202);
-
-		}
-
-
-		return responseclass;
-
-
-	}
-	public void validate(DtoClass registerDto) {
-		if(registerDto.getEmail() == null || registerDto.getEmail().isEmpty()) {
-			throw new CommonException(201, "Email is empty");
-		}
-		
-		if(registerDto.getPassword() == null || registerDto.getPassword().isEmpty()) {
-			throw new CommonException(201, "password is empty");
-		}
-		
-		}
-	 public void format(DtoClass dtoclass) {
-		 String emailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-		 String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-
-		
-
-			Pattern epattern = Pattern.compile(emailPattern);
-
-			Matcher emailmatcher = epattern.matcher(dtoclass.getEmail());
-			if (!emailmatcher.matches()) {
-				throw new CommonException(400, "Email is not valid format");
-
-			}
-
-			Pattern ppattern = Pattern.compile(passwordPattern);
-
-			Matcher passwordmatcher = ppattern.matcher(dtoclass.getPassword());
-			if (!passwordmatcher.matches()) {
-				throw new CommonException(400, "password is not valid format");
-
-			}
-
-	 }
-	}
-
+	 public List<DtoClass> getCartsByUserId(int user_id) {
+        List<EntityClass> carts = repo.getCartsByUserId(user_id);
+        List<DtoClass> cartDTOs = new ArrayList<>();
+        for (EntityClass cart : carts) {
+        	DtoClass cartDTO = new DtoClass();
+            cartDTO.setId(cart.getId());
+            cartDTO.setFood_name(cart.getFood_name());
+            cartDTO.setFood_type(cart.getFood_type());
+            cartDTO.setFood_image(cart.getFood_image());
+            cartDTO.setFood_price(cart.getFood_price());
+            cartDTO.setFood_quantity(cart.getFood_quantity());
+            cartDTOs.add(cartDTO);
+        }
+        return cartDTOs;
+    }
+}

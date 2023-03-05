@@ -2,11 +2,12 @@
 
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.dto.DtoClass;
-import com.example.demo.response.ResponseClass;
 
 public interface ServiceInterface {
 	
-	ResponseClass login(DtoClass loginDto);
+	List<DtoClass> getCartsByUserId(int user_id);
 
 }

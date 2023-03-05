@@ -2,97 +2,115 @@ package com.example.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "cart")
 public class EntityClass {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name  = "id")
 	private int id;
-	
 
-	@Column(name = "firstname")
-	private String firstname;
+	@Column(name = "food_name")
+	private String food_name;
 	
-	@Column(name = "lastname")
-	private String lastname;
+	@Column(name = "food_type")
+	private String food_type;
 	
-	@Column(name = "email")
-	private String email;
-	 
-	@Column(name = "password")
-	private String password;
+	@Column(name = "food_image")
+	private String food_image;
 	
-	@Column(name = "address")
-	private String address;
+	@Column(name = "food_price")
+	private int food_price;
+	
+	@Column(name = "food_quantity")
+	private int food_quantity;
+	
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @JoinColumn(name = "user_id")
+	 private User user;
 
 	public int getId() {
 		return id;
-	}
-
-	public EntityClass(int id, String firstname, String lastname, String email, String password, String address) {
-		
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.password = password;
-		this.address = address;
-	}
-
-	public EntityClass() {
-		
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFood_name() {
+		return food_name;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFood_name(String food_name) {
+		this.food_name = food_name;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getFood_type() {
+		return food_type;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setFood_type(String food_type) {
+		this.food_type = food_type;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getFood_image() {
+		return food_image;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setFood_image(String food_image) {
+		this.food_image = food_image;
 	}
 
-	public String getPassword() {
-		return password;
+	public int getFood_price() {
+		return food_price;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setFood_price(int food_price) {
+		this.food_price = food_price;
 	}
 
-	public String getAddress() {
-		return address;
+	public int getFood_quantity() {
+		return food_quantity;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setFood_quantity(int food_quantity) {
+		this.food_quantity = food_quantity;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public EntityClass() {
+	}
+
+	public EntityClass(int id, String food_name, String food_type, String food_image, int food_price, int food_quantity,
+			User user) {
+		super();
+		this.id = id;
+		this.food_name = food_name;
+		this.food_type = food_type;
+		this.food_image = food_image;
+		this.food_price = food_price;
+		this.food_quantity = food_quantity;
+		this.user = user;
+	}
+
+	
+	
 }
 	

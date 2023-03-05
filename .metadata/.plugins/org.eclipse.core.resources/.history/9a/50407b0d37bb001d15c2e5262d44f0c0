@@ -1,0 +1,42 @@
+package com.example.demo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name = "cart")
+public class EntityClass {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name  = "id")
+	private int id;
+
+	@Column(name = "food_name")
+	private int food_name;
+	
+	@Column(name = "food_type")
+	private String food_type;
+	
+	@Column(name = "food_image")
+	private String food_image;
+	
+	@Column(name = "food_price")
+	private int food_price;
+	
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @JoinColumn(name = "user_id")
+	 private User user;
+	
+	
+	
+}
+	
